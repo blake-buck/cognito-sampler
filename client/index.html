@@ -21,22 +21,32 @@
             <input name='password' placeholder='password' />
             <button>Login</button>
         </form>
+
+        <form id='refresh-token'>
+            <input name='accessToken' placeholder='access token(copy from login result in console)' />
+            <input name='refreshToken' placeholder='refresh token(copy from login result in console)' />
+            <button>Get refreshed accessToken</button>
+        </form>
+
         <form id='forgot-password'>
             <input name='username' placeholder='username' />
             <button>Forgot Password</button>
         </form>
+
         <form id='confirm-forgot-password'>
             <input name='username' placeholder='username' />
             <input name='confirmationCode' placeholder='confirmation code' />
             <input name='password' placeholder='new password' />
             <button>Confirm new password</button>
         </form>
+
         <form id='change-password'>
             <input name='accessToken' placeholder='access token(copy from login result in console)' />
             <input name='previousPassword' placeholder='previous password' />
             <input name='proposedPassword' placeholder='proposed password' />
             <button>Change password</button>
         </form>
+
         <form id='delete-account'>
             <input name='accessToken' placeholder='access token(copy from login result in console)' />
             <button>Delete Account</button>

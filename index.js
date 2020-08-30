@@ -3,7 +3,7 @@ const express = require('express');
 const {json} = express;
 
 const {CognitoIdentityServiceProvider} = require('aws-sdk');
-const {createSecretHash, formatHeaders} = require('./util');
+const {createSecretHash, formatHeaders, getUserIdFromToken} = require('./util');
 
 const app = express();
 app.use(express.static('client'))
@@ -93,6 +93,27 @@ app.post('/login', async (req, res) => {
     catch(error){
         res.json({message:'An error occured logging in', error})
     }
+})
+
+app.post('/refresh-token', async (req, res) => {
+    const {refreshToken, accessToken} = req.body;
+    const params = {
+        UserPoolId: AWS_USER_POOL_ID,
+        ClientId: AWS_CLIENT_ID,
+        AuthFlow:'REFRESH_TOKEN_AUTH',
+        
+        AuthParameters:{
+            REFRESH_TOKEN:refreshToken,
+            SECRET_HASH: createSecrectHash(getUserIdFromToken(accessToken)),
+        },
+
+        ContextData:{
+            IpAddress:   req.ip,
+            ServerName:  SERVER_NAME,
+            ServerPath:  '/refresh-token',
+            HttpHeaders: formatHeaders(req.headers)
+        }
+    };
 })
 
 app.post('/forgot-password', async (req, res) => {
