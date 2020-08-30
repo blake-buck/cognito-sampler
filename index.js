@@ -104,7 +104,7 @@ app.post('/refresh-token', async (req, res) => {
         
         AuthParameters:{
             REFRESH_TOKEN:refreshToken,
-            SECRET_HASH: createSecrectHash(getUserIdFromToken(accessToken)),
+            SECRET_HASH: createSecretHash(getUserIdFromToken(accessToken)),
         },
 
         ContextData:{
@@ -114,6 +114,14 @@ app.post('/refresh-token', async (req, res) => {
             HttpHeaders: formatHeaders(req.headers)
         }
     };
+
+    try{
+        const result = await cognito.adminInitiateAuth(params).promise();
+        res.json({message:'Token refreshed', result})
+    }
+    catch(error){
+        res.json({error})
+    }
 })
 
 app.post('/forgot-password', async (req, res) => {

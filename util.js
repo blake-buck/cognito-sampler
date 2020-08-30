@@ -19,11 +19,10 @@ function formatHeaders(headers){
     return newHeaders;
 }
 
-function getUserIdFromToken(accessToken){
+function getUserIdFromToken(accessToken){ 
     const tokenBody = JSON.parse(
         Buffer.from(accessToken.split('.')[1], 'base64').toString()
     );
-    console.log(tokenBody);
     return tokenBody['username'];
 }
 
