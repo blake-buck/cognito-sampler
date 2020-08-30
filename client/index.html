@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cognito Sampler</title>
+    </head>
+    <body>
+        <form id='register'>
+            <input name='username' placeholder='username' />
+            <input name='password' placeholder='password' />
+            <button>Register</button>
+        </form>
+
+        <form id='confirm-register'>
+            <input name='username' placeholder='username' />
+            <input name='confirmationCode' placeholder='confirmation code' />
+            <button>Confirm Registration</button>
+        </form>
+
+        <form id='login'>
+            <input name='username' placeholder='username' />
+            <input name='password' placeholder='password' />
+            <button>Login</button>
+        </form>
+        <form id='forgot-password'>
+            <input name='username' placeholder='username' />
+            <button>Forgot Password</button>
+        </form>
+        <form id='confirm-forgot-password'>
+            <input name='username' placeholder='username' />
+            <input name='confirmationCode' placeholder='confirmation code' />
+            <input name='password' placeholder='new password' />
+            <button>Confirm new password</button>
+        </form>
+        <form id='change-password'>
+            <input name='accessToken' placeholder='access token(copy from login result in console)' />
+            <input name='previousPassword' placeholder='previous password' />
+            <input name='proposedPassword' placeholder='proposed password' />
+            <button>Change password</button>
+        </form>
+        <form id='delete-account'>
+            <input name='accessToken' placeholder='access token(copy from login result in console)' />
+            <button>Delete Account</button>
+        </form>
+    </body>
+    <script>
+        document.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const body = Object.fromEntries(new FormData(e.target));
+            console.log(body)
+            fetch(
+                '/' + e.target.id, 
+                {
+                    method:'POST',
+                    body:JSON.stringify(body),
+                    headers:{
+                        'Content-Type':'application/json'
+                    }
+                }
+            )
+                .then(response => response.json())
+                .then(val => console.log(val))
+        });
+    </script>
+    <style>
+        form{
+            display:flex;
+            flex-direction: column;
+            margin: 15px;
+        }
+    </style>
+</html>
