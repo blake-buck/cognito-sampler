@@ -1,3 +1,4 @@
+Related article: https://dev.to/blakebuck/a-primer-on-the-amazon-cognito-node-sdk-27i6
 Basic sample of Cognito functions.
 Steps to get running:
 1. run npm install in cloned directory
